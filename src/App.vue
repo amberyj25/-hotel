@@ -18,7 +18,7 @@
   </div>
   <div class="main_content">
     <ul id="rooms_ul">
-      <Rooms v-for="(item, index) in rooms" :item="item" :key="index"></Rooms>
+      <Rooms v-for="(room, index) in rooms" :inner-room="room" :key="index"></Rooms>
     </ul>
   </div>
   </main>

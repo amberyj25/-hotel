@@ -1,13 +1,13 @@
 <template>
     <li>
-     <a href="##" @click.prevent="updateUrl(item.id)" class="li_img">
-        <img :src="item.imageUrl">
+     <a href="##" @click.prevent="updateUrl(innerRoom.id)" class="li_img">
+        <img :src="innerRoom.imageUrl">
       </a>
       <div class="li_inner">
-        <a href="##" @click.prevent="updateUrl(item.id)" class="li_text">{{item.name}}</a>
-        <p>平日：{{item.normalDayPrice}}元 / 假日：{{item.holidayPrice}}元</p>
+        <a href="##" @click.prevent="updateUrl(innerRoom.id)" class="li_text">{{innerRoom.name}}</a>
+        <p>平日：{{innerRoom.normalDayPrice}}元 / 假日：{{innerRoom.holidayPrice}}元</p>
         <div class="more">
-          <a href="##" @click.prevent="updateUrl(item.id)">點擊看更多介紹</a>
+          <a href="##" @click.prevent="updateUrl(innerRoom.id)">點擊看更多介紹</a>
         </div>
       </div>
     </li>
@@ -16,7 +16,7 @@
 <script>
 export default{
   name:"Rooms",
-  props:["item"],
+  props:["innerRoom"],
   methods:{
     updateUrl(id){
       this.$router.push(`/SingleRoom/${id}`)
