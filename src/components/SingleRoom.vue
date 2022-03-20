@@ -14,23 +14,26 @@
     </nav>
     </div>
   </header>
-  <main>  
-    <div class="room_img">
-      <div class="img">
-      <img :src="room.imageUrl[2]">
+  <loading :active.sync="isLoading"></loading>
+  <main>
+    <div class="room_content" v-if="checkAPIResponse">
+      <div class="room_img">
+        <div class="img">
+        <img :src="room.imageUrl[2]">
+        </div>
+        <div class="another_img">
+          <img :src="room.imageUrl[0]">
+          <img :src="room.imageUrl[1]">
+        </div>
       </div>
-      <div class="another_img">
-        <img :src="room.imageUrl[0]">
-        <img :src="room.imageUrl[1]">
+      <div class="room_feature">
+        <h2>{{room.name}}</h2>
+        <p>房客人數限制：{{room.descriptionShort.GuestMax}}</p>
+        <p>床型：{{room.descriptionShort.Bed[0]}}</p>
+        <p>CheckIn的時間 : {{room.checkInAndOut.checkInEarly}}</p>
+        <p>CheckOut的時間 : {{room.checkInAndOut.checkOut}} </p>
+        <p style="text-align: justify;">{{room.description}}</p>
       </div>
-    </div>
-    <div class="room_feature">
-    <h2>{{room.name}}</h2>
-    <p>房客人數限制：{{room.descriptionShort.GuestMax}}</p>
-    <p>床型：{{room.descriptionShort.Bed[0]}}</p>
-     <p>CheckIn的時間 : {{room.checkInAndOut.checkInEarly}}</p>
-     <p>CheckOut的時間 : {{room.checkInAndOut.checkOut}} </p>
-     <p style="text-align: justify;">{{room.description}}</p>
     </div>
   </main>
   </div>
@@ -40,18 +43,23 @@ export default{
   name:"singleRoom",
   data(){
     return{
-      room:""
+      room:"",
+      isLoading: false,
+      checkAPIResponse: false,
     }
   },
   mounted(){
     let id=this.$route.params.id;
+    this.isLoading = true;
     this.axios.get(`https://challenge.thef2e.com/api/thef2e2019/stage6/room/${id}`,{
       headers:{
          Authorization : "Bearer gXEmeg7d3PR517E9MXk9ApnsGVmHliQY1geCc0YbQMNTcsRvjEcDSf5RDSDd",
          accept:"application/json",
       }
     }).then(result=>{
-      this.room=result.data.room[0];
+      this.room = result.data.room[0];
+      this.checkAPIResponse = true;
+      this.isLoading = false;
     })
   },
 }
@@ -89,7 +97,7 @@ header nav a{
 header a:hover{
   color: blue;
 }
-main{
+main .room_content{
   background-color:	#2b2d42;
   display: flex;
   justify-content: space-around;  
