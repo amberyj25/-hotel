@@ -50,11 +50,10 @@ export default{
       const vm = this;
       vm.isLoading = true;
       vm.axios.post("https://vue-course-api.hexschool.io/signin",vm.user).then((result)=>{
-        console.log(result.data.success);
+        vm.isLoading = false;
         if(result.data.success == true){
           vm.changeComponent = "result";
           vm.answer = "恭喜您成功登入";
-          vm.isLoading = false;
         } else if(result.data.success == false) {
           vm.notSuccess = "沒有登入成功";
         }
